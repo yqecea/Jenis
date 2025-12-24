@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Қазақстан – Майдан Арсеналы және Жеңіс Тірегі</title>
+    
+    <!-- Google Fonts - Premium Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Bodoni+Moda:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- TailwindCSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- GSAP + Plugins -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'paper': '#FAF9F6',
+                        'cream': '#F5F3EE',
+                        'parchment': '#EBE8E1',
+                        'ink': '#1A1A1A',
+                        'graphite': '#2C2C2C',
+                        'stone': '#6B6B6B',
+                        'warm': '#8B7E6A',
+                        'brass': '#9C8B5E',
+                        'antique': '#7D6E4B',
+                        'sepia': '#5C4A32',
+                        'rust': '#8B4513',
+                        'wine': '#5C2D33'
+                    },
+                    fontFamily: {
+                        'display': ['Bodoni Moda', 'serif'],
+                        'serif': ['EB Garamond', 'serif'],
+                        'classic': ['Libre Baskerville', 'serif'],
+                        'sans': ['DM Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        ::selection {
+            background: #9C8B5E;
+            color: white;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            background-color: #FAF9F6;
+            color: #1A1A1A;
+            font-family: 'DM Sans', sans-serif;
+            overflow-x: hidden;
+            cursor: none;
+        }
+        
+        /* Custom Cursor */
+        .cursor {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #9C8B5E;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.6;
+            transition: opacity 0.5s cubic-bezier(0.19, 1, 0.22, 1), 
+                        transform 0.5s cubic-bezier(0.19, 1, 0.22, 1),
+                        background 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        
+        .cursor-dot {
+            width: 4px;
+            height: 4px;
+            background: #9C8B5E;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+        }
+        
+        .cursor.hover {
+            transform: scale(1.8);
+            background: rgba(156, 139, 94, 0.08);
+            border-color: #7D6E4B;
+            opacity: 1;
+        }
+        
+        /* Preloader */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #FAF9F6;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .loader-text {
+            font-family: 'Bodoni Moda', serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.5em;
+            color: #9C8B5E;
+            text-transform: uppercase;
+            margin-bottom: 3rem;
+        }
+        
+        .loader-main {
+            font-family: 'EB Garamond', serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 400;
+            font-style: italic;
+            color: #1A1A1A;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+        }
+        
+        .loader-line {
+            width: 120px;
+            height: 1px;
+            background: #EBE8E1;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .loader-progress {
+            position: absolute;
+            height: 100%;
+            background: #9C8B5E;
+            width: 0%;
+            transition: width 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        
+        .loader-years {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            color: #8B7E6A;
+            margin-top: 2rem;
+        }
+        
+        /* Typography Classes */
+        .font-display {
+            font-family: 'Bodoni Moda', serif;
+        }
+        
+        .font-serif {
+            font-family: 'EB Garamond', serif;
+        }
+        
+        .font-classic {
+            font-family: 'Libre Baskerville', serif;
+        }
+        
+        .text-label {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.65rem;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: #8B7E6A;
+        }
+        
+        /* Hero Typography */
+        .hero-title {
+            font-family: 'Bodoni Moda', serif;
+            font-size: clamp(5rem, 18vw, 16rem);
+            font-weight: 400;
+            line-height: 0.85;
+            letter-spacing: -0.04em;
+        }
+        
+        .hero-subtitle {
+            font-family: 'EB Garamond', serif;
+            font-size: clamp(1.25rem, 3vw, 2rem);
+            font-weight: 400;
+            font-style: italic;
+            line-height: 1.6;
+            color: #6B6B6B;
+        }
+        
+        /* Stat Numbers */
+        .stat-huge {
+            font-family: 'Bodoni Moda', serif;
+            font-size: clamp(5rem, 15vw, 12rem);
+            font-weight: 400;
+            line-height: 0.85;
+            letter-spacing: -0.03em;
+        }
+        
+        .stat-large {
+            font-family: 'Bodoni Moda', serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 400;
+            line-height: 1;
+        }
+        
+        .stat-medium {
+            font-family: 'EB Garamond', serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 400;
+        }
+        
+        /* Section Titles */
+        .section-title {
+            font-family: 'Bodoni Moda', serif;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 400;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+        
+        /* Card Styles */
+        .museum-card {
+            background: white;
+            border: 1px solid #EBE8E1;
+            transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        
+        .museum-card:hover {
+            border-color: #9C8B5E;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.04);
+            transform: translateY(-4px);
+        }
+        
+        /* Decorative Lines */
+        .line-h {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #D4CFC4 20%, #D4CFC4 80%, transparent);
+        }
+        
+        .line-v {
+            width: 1px;
+            background: linear-gradient(180deg, transparent, #D4CFC4 20%, #D4CFC4 80%, transparent);
+        }
+        
+        .line-accent {
+            height: 1px;
+            background: #9C8B5E;
+            transform-origin: left;
+        }
+        
+        /* Marquee */
+        .marquee {
+            display: flex;
+            overflow: hidden;
+            user-select: none;
+        }
+        
+        .marquee-content {
+            display: flex;
+            animation: marquee 60s linear infinite;
+        }
+        
+        @keyframes marquee {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+        
+        .marquee-item {
+            flex-shrink: 0;
+            padding: 0 4rem;
+            font-family: 'EB Garamond', serif;
+            font-size: 1.1rem;
+            font-style: italic;
+            color: #8B7E6A;
+            white-space: nowrap;
+        }
+        
+        /* Quote */
+        .quote-large {
+            font-family: 'EB Garamond', serif;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-style: italic;
+            line-height: 1.5;
+            color: #2C2C2C;
+        }
+        
+        /* Reading Progress */
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 1px;
+            background: #9C8B5E;
+            z-index: 9999;
+        }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #FAF9F6;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #C4BDAE;
+            border-radius: 3px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #9C8B5E;
+        }
+        
+        /* Grid pattern */
+        .grid-subtle {
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 0, 0, 0.015) 1px, transparent 1px);
+            background-size: 100px 100px;
+        }
+        
+        /* Reveal base */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+        
+        .reveal-fade {
+            opacity: 0;
+        }
+        
+        .reveal-line {
+            transform: scaleX(0);
+            transform-origin: left;
+        }
+        
+        /* Number styling */
+        .number-outline {
+            -webkit-text-stroke: 1px #9C8B5E;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* Hover underline */
+        .hover-line {
+            position: relative;
+        }
+        
+        .hover-line::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #9C8B5E;
+            transition: width 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        
+        .hover-line:hover::after {
+            width: 100%;
+        }
+        
+        /* Mobile */
+        @media (max-width: 768px) {
+            body { cursor: auto; }
+            .cursor, .cursor-dot { display: none; }
+        }
+        
+        /* Smooth transitions for everything */
+        *, *::before, *::after {
+            transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-dot" id="cursorDot"></div>
+    
+    <!-- Reading Progress -->
+    <div class="reading-progress" id="readingProgress"></div>
+    
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader-text">Қазақстан</div>
+        <div class="loader-main">Арсенал</div>
+        <div class="loader-line">
+            <div class="loader-progress" id="loaderProgress"></div>
+        </div>
+        <div class="loader-years">1941 — 1945</div>
+    </div>
+    
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full z-50 mix-blend-difference">
+        <div class="max-w-7xl mx-auto px-8 md:px-16 py-8 flex justify-between items-center">
+            <a href="#hero" class="font-display text-white text-lg tracking-wide hover-trigger">Арсенал</a>
+            <div class="hidden md:flex gap-16">
+                <a href="#industry" class="text-label text-white/70 hover:text-white transition-colors duration-700 hover-trigger">Өнеркәсіп</a>
+                <a href="#heroes" class="text-label text-white/70 hover:text-white transition-colors duration-700 hover-trigger">Батырлар</a>
+                <a href="#agriculture" class="text-label text-white/70 hover:text-white transition-colors duration-700 hover-trigger">Ауыл</a>
+                <a href="#legacy" class="text-label text-white/70 hover:text-white transition-colors duration-700 hover-trigger">Мұра</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section id="hero" class="min-h-screen relative flex items-center justify-center overflow-hidden bg-paper">
+        <div class="absolute inset-0 grid-subtle"></div>
+        
+        <!-- Decorative elements -->
+        <div class="absolute top-1/4 left-16 hidden lg:block">
+            <div class="w-px h-32 bg-parchment"></div>
+        </div>
+        <div class="absolute bottom-1/4 right-16 hidden lg:block">
+            <div class="w-px h-32 bg-parchment"></div>
+        </div>
+        
+        <!-- Year markers -->
+        <div class="absolute left-8 md:left-16 bottom-16">
+            <p class="text-label text-warm/40 reveal-fade" id="yearStart">1941</p>
+        </div>
+        <div class="absolute right-8 md:right-16 bottom-16">
+            <p class="text-label text-warm/40 reveal-fade" id="yearEnd">1945</p>
+        </div>
+        
+        <div class="relative z-10 text-center px-8 max-w-6xl mx-auto">
+            <!-- Eyebrow -->
+            <div class="mb-12">
+                <p class="text-label reveal-fade" id="heroEyebrow">Екінші дүниежүзілік соғыс тарихында</p>
+            </div>
+            
+            <!-- Main Title -->
+            <h1 class="hero-title text-ink mb-8 reveal" id="heroTitle">
+                10 оқтың<br/>
+                <span class="text-brass">9</span>-ы
+            </h1>
+            
+            <!-- Line -->
+            <div class="flex justify-center mb-12">
+                <div class="w-24 line-accent reveal-line" id="heroLine"></div>
+            </div>
+            
+            <!-- Subtitle -->
+            <p class="hero-subtitle max-w-2xl mx-auto mb-16 reveal" id="heroSubtitle">
+                Майданға атылған әрбір он оқтың тоғызы<br/>
+                Қазақстанда өндірілген қорғасыннан құйылды
+            </p>
+            
+            <!-- Scroll hint -->
+            <div class="reveal-fade" id="scrollHint">
+                <p class="text-label text-warm/50 mb-4">Төменге</p>
+                <div class="w-px h-12 bg-warm/30 mx-auto"></div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Quote Section -->
+    <section class="py-32 bg-cream">
+        <div class="max-w-4xl mx-auto px-8 md:px-16 text-center">
+            <p class="quote-large reveal">
+                "Бұл статистиканың артында мыңдаған кеншілердің, металлургтердің және олардың орнын басқан әйелдер мен жасөспірімдердің ерлікке толы еңбегі тұр"
+            </p>
+            <div class="mt-12 reveal-fade">
+                <span class="text-label text-warm">— Тарихи дерек</span>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Stats Marquee -->
+    <section class="py-6 border-y border-parchment bg-paper">
+        <div class="marquee">
+            <div class="marquee-content">
+                <span class="marquee-item">1 200 000 адам майданға аттанды</span>
+                <span class="marquee-item">•</span>
+                <span class="marquee-item">500+ Кеңес Одағының Батыры</span>
+                <span class="marquee-item">•</span>
+                <span class="marquee-item">220 зауыт эвакуацияланды</span>
+                <span class="marquee-item">•</span>
+                <span class="marquee-item">85% қорғасын өндірісі</span>
+                <span class="marquee-item">•</span>
+                <span class="marquee-item">1 200 000 адам майданға аттанды</span>
+                <span class="marquee-item">•</span>
+                <span class="marquee-item">500+ Кеңес Одағының Батыры</span>
+                <span class="marquee-item">•</span>
+                <span class="marquee-item">220 зауыт эвакуацияланды</span>
+                <span class="marquee-item">•</span>
+                <span class="marquee-item">85% қорғасын өндірісі</span>
+                <span class="marquee-item">•</span>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Industry Section -->
+    <section id="industry" class="py-32 md:py-48 bg-paper">
+        <div class="max-w-7xl mx-auto px-8 md:px-16">
+            <!-- Header -->
+            <div class="grid md:grid-cols-2 gap-16 mb-32">
+                <div>
+                    <p class="text-label mb-8 reveal-fade">Өнеркәсіптік қуат</p>
+                    <h2 class="section-title text-ink reveal">
+                        Майдан<br/>зауыттары
+                    </h2>
+                </div>
+                <div class="flex items-end">
+                    <p class="font-serif text-lg text-stone leading-relaxed reveal">
+                        Қазақстанның жер қойнауы соғыс техникасын жасауға қажетті Менделеев кестесінің барлық элементтеріне бай болды. Елдің экономикасы қысқа мерзімде толығымен "соғыс рельсіне" қайта құрылды.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Big Stats -->
+            <div class="grid md:grid-cols-3 gap-8 md:gap-4 mb-32">
+                <!-- Lead -->
+                <div class="text-center py-16 border-t border-parchment reveal hover-trigger group">
+                    <span class="stat-huge text-ink group-hover:text-brass transition-colors duration-700">85<span class="text-brass">%</span></span>
+                    <p class="font-display text-2xl text-ink mt-4 mb-2">Қорғасын</p>
+                    <p class="font-serif text-stone italic">Шымкент • Риддер</p>
+                </div>
+                
+                <!-- Copper -->
+                <div class="text-center py-16 border-t border-parchment reveal hover-trigger group" style="transition-delay: 0.1s;">
+                    <span class="stat-huge text-ink group-hover:text-brass transition-colors duration-700">35<span class="text-brass">%</span></span>
+                    <p class="font-display text-2xl text-ink mt-4 mb-2">Мыс</p>
+                    <p class="font-serif text-stone italic">Балқаш • Жезқазған</p>
+                </div>
+                
+                <!-- Manganese -->
+                <div class="text-center py-16 border-t border-parchment reveal hover-trigger group" style="transition-delay: 0.2s;">
+                    <span class="stat-huge text-ink group-hover:text-brass transition-colors duration-700">38</span>
+                    <p class="font-display text-2xl text-ink mt-4 mb-2">Күн</p>
+                    <p class="font-serif text-stone italic">Жезді марганец рекорды</p>
+                </div>
+            </div>
+            
+            <!-- Quote -->
+            <div class="max-w-3xl mx-auto text-center mb-32 reveal">
+                <p class="font-serif text-2xl md:text-3xl text-ink leading-relaxed italic">
+                    "Марганецсіз танктердің сауытын жасау мүмкін емес, өйткені онсыз болат сынғыш келеді"
+                </p>
+                <p class="text-label text-warm mt-8">Қаныш Сәтбаев басшылығымен</p>
+            </div>
+            
+            <!-- Evacuated Factories -->
+            <div class="border-t border-parchment pt-16">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-16">
+                    <h3 class="font-display text-3xl text-ink reveal">Ұлы индустриалды көш</h3>
+                    <span class="stat-medium text-brass reveal-fade">220+</span>
+                </div>
+                
+                <div class="grid md:grid-cols-4 gap-px bg-parchment">
+                    <div class="bg-paper p-8 reveal hover-trigger">
+                        <span class="font-display text-4xl text-brass block mb-4">АЗТМ</span>
+                        <p class="font-sans text-sm text-stone leading-relaxed">Алматы ауыр машина жасау зауыты — миналар мен снарядтар шығарды</p>
+                    </div>
+                    <div class="bg-paper p-8 reveal hover-trigger" style="transition-delay: 0.1s;">
+                        <span class="font-display text-4xl text-brass block mb-4">75%</span>
+                        <p class="font-sans text-sm text-stone leading-relaxed">Қарағанды көмір өндіру көлемі соғыс жылдарында артты</p>
+                    </div>
+                    <div class="bg-paper p-8 reveal hover-trigger" style="transition-delay: 0.2s;">
+                        <span class="font-display text-4xl text-brass block mb-4">60%</span>
+                        <p class="font-sans text-sm text-stone leading-relaxed">Қазақстанда молибден өндірісі жолға қойылды</p>
+                    </div>
+                    <div class="bg-paper p-8 reveal hover-trigger" style="transition-delay: 0.3s;">
+                        <span class="font-display text-4xl text-brass block mb-4">1943</span>
+                        <p class="font-sans text-sm text-stone leading-relaxed">Ақтөбе ферроқорытпа зауыты іске қосылды</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Divider -->
+    <div class="line-h"></div>
+    
+    <!-- Heroes Section -->
+    <section id="heroes" class="py-32 md:py-48 bg-cream">
+        <div class="max-w-7xl mx-auto px-8 md:px-16">
+            <!-- Header -->
+            <div class="text-center mb-32">
+                <p class="text-label mb-8 reveal-fade">Адами капитал және батырлық</p>
+                <h2 class="section-title text-ink mb-8 reveal">
+                    Отан үшін<br/>отқа түскендер
+                </h2>
+                <div class="flex items-center justify-center gap-6 reveal-fade">
+                    <div class="w-16 h-px bg-brass"></div>
+                    <span class="font-serif italic text-warm">1941–1945</span>
+                    <div class="w-16 h-px bg-brass"></div>
+                </div>
+            </div>
+            
+            <!-- Key Stats -->
+            <div class="grid md:grid-cols-3 gap-16 mb-32 text-center">
+                <div class="reveal">
+                    <span class="stat-large text-ink block mb-4 counter" data-target="1200000">0</span>
+                    <p class="text-label">Майданға аттанған</p>
+                </div>
+                <div class="reveal" style="transition-delay: 0.15s;">
+                    <span class="stat-large text-ink block mb-4 counter" data-target="600000">0</span>
+                    <p class="text-label">Қайтып оралмаған</p>
+                </div>
+                <div class="reveal" style="transition-delay: 0.3s;">
+                    <span class="stat-large text-brass block mb-4 counter" data-target="500">0</span>
+                    <p class="text-label">Кеңес Одағының Батыры</p>
+                </div>
+            </div>
+            
+            <!-- Heroes List -->
+            <div class="space-y-0 border-t border-parchment">
+                <!-- Hero 1 -->
+                <div class="grid md:grid-cols-12 gap-8 py-12 border-b border-parchment reveal hover-trigger group">
+                    <div class="md:col-span-1">
+                        <span class="font-display text-3xl text-parchment group-hover:text-brass transition-colors duration-700">01</span>
+                    </div>
+                    <div class="md:col-span-4">
+                        <p class="text-label text-brass mb-2">Кеңес Одағының Батыры</p>
+                        <h3 class="font-display text-3xl text-ink">Әлия Молдағұлова</h3>
+                    </div>
+                    <div class="md:col-span-7">
+                        <p class="font-serif text-lg text-stone leading-relaxed">
+                            Мерген. Шығыстың қос жұлдызының бірі — Кеңес Одағының Батыры атанған қазақ қыздарының бірі. Ерлігі мен батырлығы аңызға айналған.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Hero 2 -->
+                <div class="grid md:grid-cols-12 gap-8 py-12 border-b border-parchment reveal hover-trigger group">
+                    <div class="md:col-span-1">
+                        <span class="font-display text-3xl text-parchment group-hover:text-brass transition-colors duration-700">02</span>
+                    </div>
+                    <div class="md:col-span-4">
+                        <p class="text-label text-brass mb-2">Кеңес Одағының Батыры</p>
+                        <h3 class="font-display text-3xl text-ink">Мәншүк Мәметова</h3>
+                    </div>
+                    <div class="md:col-span-7">
+                        <p class="font-serif text-lg text-stone leading-relaxed">
+                            Пулеметші. Шығыстың қос жұлдызы — ерлігі мен қайсарлығымен аңызға айналған батыр қыз. Невель қаласын азат ету шайқасында ерлікпен қаза тапты.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Hero 3 -->
+                <div class="grid md:grid-cols-12 gap-8 py-12 border-b border-parchment reveal hover-trigger group">
+                    <div class="md:col-span-1">
+                        <span class="font-display text-3xl text-parchment group-hover:text-brass transition-colors duration-700">03</span>
+                    </div>
+                    <div class="md:col-span-4">
+                        <p class="text-label text-brass mb-2">Екі мәрте Батыр</p>
+                        <h3 class="font-display text-3xl text-ink">Талғат Бигелдинов</h3>
+                    </div>
+                    <div class="md:col-span-7">
+                        <p class="font-serif text-lg text-stone leading-relaxed">
+                            Ұшқыш, 305 жауынгерлік ұшу жасаған. Екі мәрте Кеңес Одағының Батыры атанған. Соғыстан кейін авиация маршалы атағын алды.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Hero 4 -->
+                <div class="grid md:grid-cols-12 gap-8 py-12 border-b border-parchment reveal hover-trigger group">
+                    <div class="md:col-span-1">
+                        <span class="font-display text-3xl text-parchment group-hover:text-brass transition-colors duration-700">04</span>
+                    </div>
+                    <div class="md:col-span-4">
+                        <p class="text-label text-brass mb-2">Халық Қаһарманы</p>
+                        <h3 class="font-display text-3xl text-ink">Хиуаз Доспанова</h3>
+                    </div>
+                    <div class="md:col-span-7">
+                        <p class="font-serif text-lg text-stone leading-relaxed">
+                            "Түнгі мыстандар" атты 46-шы гвардиялық түнгі бомбалаушы авиаполктің штурманы. 300-ден астам жауынгерлік ұшу жасаған жалғыз қазақ қызы.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Hero 5 -->
+                <div class="grid md:grid-cols-12 gap-8 py-12 border-b border-parchment reveal hover-trigger group">
+                    <div class="md:col-span-1">
+                        <span class="font-display text-3xl text-parchment group-hover:text-brass transition-colors duration-700">05</span>
+                    </div>
+                    <div class="md:col-span-4">
+                        <p class="text-label text-brass mb-2">Рейхстаг Батыры</p>
+                        <h3 class="font-display text-3xl text-ink">Рақымжан Қошқарбаев</h3>
+                    </div>
+                    <div class="md:col-span-7">
+                        <p class="font-serif text-lg text-stone leading-relaxed">
+                            1945 жылы 30 сәуірде Рейхстагқа Григорий Булатовпен бірге Жеңіс туын алғашқылардың бірі болып тіккен қазақ батыры.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Hero 6 -->
+                <div class="grid md:grid-cols-12 gap-8 py-12 border-b border-parchment reveal hover-trigger group">
+                    <div class="md:col-span-1">
+                        <span class="font-display text-3xl text-parchment group-hover:text-brass transition-colors duration-700">06</span>
+                    </div>
+                    <div class="md:col-span-4">
+                        <p class="text-label text-wine mb-2">Гвардиялық бөлім</p>
+                        <h3 class="font-display text-3xl text-ink">Панфиловшылар</h3>
+                    </div>
+                    <div class="md:col-span-7">
+                        <p class="font-serif text-lg text-stone leading-relaxed">
+                            316-шы атқыштар дивизиясы Мәскеу түбіндегі шайқаста темірдей тәртіп пен қайтпас қайсарлықтың үлгісін көрсетті. Соғысты Балтық жағалауында аяқтады.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Military Units Stats -->
+            <div class="mt-24 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div class="reveal">
+                    <span class="font-display text-5xl text-brass">12</span>
+                    <p class="text-label mt-4">Атқыштар<br/>дивизиясы</p>
+                </div>
+                <div class="reveal" style="transition-delay: 0.1s;">
+                    <span class="font-display text-5xl text-brass">4</span>
+                    <p class="text-label mt-4">Кавалериялық<br/>дивизия</p>
+                </div>
+                <div class="reveal" style="transition-delay: 0.2s;">
+                    <span class="font-display text-5xl text-brass">7</span>
+                    <p class="text-label mt-4">Атқыштар<br/>бригадасы</p>
+                </div>
+                <div class="reveal" style="transition-delay: 0.3s;">
+                    <span class="font-display text-5xl text-brass">50+</span>
+                    <p class="text-label mt-4">Полк пен<br/>батальон</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Agriculture Section -->
+    <section id="agriculture" class="py-32 md:py-48 bg-paper">
+        <div class="max-w-7xl mx-auto px-8 md:px-16">
+            <div class="grid lg:grid-cols-2 gap-24">
+                <!-- Left -->
+                <div>
+                    <p class="text-label mb-8 reveal-fade">Ауыл шаруашылығы</p>
+                    <h2 class="section-title text-ink mb-8 reveal">
+                        Рекордтар мен<br/>тылдағы еңбек
+                    </h2>
+                    <div class="w-16 h-px bg-brass mb-12 reveal-line"></div>
+                    <p class="font-serif text-lg text-stone leading-relaxed mb-16 reveal">
+                        Майданды азық-түлікпен қамтамасыз ету жүгі негізінен әйелдер, қарттар мен балаларға түсті. Олар ерлердің орнын басып, рекордтар орнатты.
+                    </p>
+                    
+                    <!-- Stats -->
+                    <div class="space-y-12">
+                        <div class="flex items-baseline gap-6 reveal hover-trigger">
+                            <span class="font-display text-6xl md:text-7xl text-brass">5.9</span>
+                            <div>
+                                <p class="font-display text-xl text-ink">млн тонна астық</p>
+                                <p class="font-serif text-stone italic">Қамбаға жіберілді</p>
+                            </div>
+                        </div>
+                        <div class="flex items-baseline gap-6 reveal hover-trigger" style="transition-delay: 0.1s;">
+                            <span class="font-display text-6xl md:text-7xl text-brass">734</span>
+                            <div>
+                                <p class="font-display text-xl text-ink">мың тонна ет</p>
+                                <p class="font-serif text-stone italic">Майданға жөнелтілді</p>
+                            </div>
+                        </div>
+                        <div class="flex items-baseline gap-6 reveal hover-trigger" style="transition-delay: 0.2s;">
+                            <span class="font-display text-6xl md:text-7xl text-brass">110</span>
+                            <div>
+                                <p class="font-display text-xl text-ink">мың жылқы</p>
+                                <p class="font-serif text-stone italic">Қызыл Армияға тартылды</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right - Record Holders -->
+                <div class="space-y-8 lg:pt-32">
+                    <!-- Zhakayev -->
+                    <div class="museum-card p-10 reveal hover-trigger">
+                        <div class="flex items-start gap-6 mb-6">
+                            <span class="font-display text-5xl text-brass">172</span>
+                            <div class="pt-2">
+                                <p class="text-label text-brass">Әлемдік рекорд • Күріш</p>
+                            </div>
+                        </div>
+                        <h3 class="font-display text-2xl text-ink mb-4">Ыбырай Жақаев</h3>
+                        <p class="font-serif text-stone leading-relaxed">
+                            "Күріш атасы" — Қызылорда облысында "Жақаевшылар" қозғалысын бастап, әр гектардан 172 центнер күріш алып, әлемдік рекорд орнатты.
+                        </p>
+                    </div>
+                    
+                    <!-- Bersiev -->
+                    <div class="museum-card p-10 reveal hover-trigger" style="transition-delay: 0.15s;">
+                        <div class="flex items-start gap-6 mb-6">
+                            <span class="font-display text-5xl text-brass">201</span>
+                            <div class="pt-2">
+                                <p class="text-label text-brass">Әлемдік рекорд • Тары</p>
+                            </div>
+                        </div>
+                        <h3 class="font-display text-2xl text-ink mb-4">Шығанақ Берсиев</h3>
+                        <p class="font-serif text-stone leading-relaxed">
+                            Ақтөбе облысында әр гектардан 201 центнер тары жинап, әлемдік рекорд жасады. Бұл астық қоршаудағы Ленинградқа жеткізілді.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Culture Section -->
+    <section class="py-32 md:py-48 bg-cream">
+        <div class="max-w-7xl mx-auto px-8 md:px-16">
+            <div class="text-center mb-24">
+                <p class="text-label mb-8 reveal-fade">Рухани майдан</p>
+                <h2 class="section-title text-ink reveal">Мәдениет және ғылым</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-px bg-parchment mb-24">
+                <!-- Science -->
+                <div class="bg-cream p-12 reveal hover-trigger">
+                    <span class="font-display text-4xl text-brass block mb-6">Бурабай</span>
+                    <h3 class="font-display text-2xl text-ink mb-4">Ғылым ордасы</h3>
+                    <p class="font-serif text-stone leading-relaxed">
+                        КСРО Ғылым Академиясының институттары, академик В.И. Вернадский, Н.Ф. Гамалея бастаған ғалымдар Бурабайға эвакуацияланып, зерттеулерін жалғастырды.
+                    </p>
+                </div>
+                
+                <!-- Cinema -->
+                <div class="bg-cream p-12 reveal hover-trigger" style="transition-delay: 0.1s;">
+                    <span class="font-display text-4xl text-brass block mb-6">ЦОКС</span>
+                    <h3 class="font-display text-2xl text-ink mb-4">Кино өнері</h3>
+                    <p class="font-serif text-stone leading-relaxed">
+                        Алматыда "Мосфильм" мен "Ленфильм" шоғырланды. Эйзенштейннің "Иван Грозный" және 23 толықметражды фильм осында түсірілді.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Zhambyl Quote -->
+            <div class="max-w-3xl mx-auto text-center reveal">
+                <span class="font-display text-8xl text-parchment leading-none">"</span>
+                <p class="font-serif text-2xl md:text-3xl text-ink leading-relaxed italic -mt-8">
+                    Жамбыл Жабаевтың "Ленинградтық өрендерім!" өлеңі қоршаудағы Ленинград тұрғындарының рухын көтерген нағыз рухани қару болды
+                </p>
+                <p class="text-label text-warm mt-12">— Жамбыл Жабаев</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Facts Section -->
+    <section class="py-32 bg-paper">
+        <div class="max-w-7xl mx-auto px-8 md:px-16">
+            <div class="flex items-center gap-8 mb-16">
+                <h2 class="font-display text-3xl text-ink reveal">Қызықты фактілер</h2>
+                <div class="flex-1 h-px bg-parchment reveal-line"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-parchment">
+                <div class="bg-paper p-10 reveal hover-trigger">
+                    <span class="font-display text-4xl text-brass block mb-4">4.7 млрд</span>
+                    <p class="font-sans text-sm text-stone leading-relaxed">Қазақстандықтар жеке жинақтарынан майданға техника алуға жинаған сом</p>
+                </div>
+                
+                <div class="bg-paper p-10 reveal hover-trigger" style="transition-delay: 0.05s;">
+                    <span class="font-display text-4xl text-brass block mb-4">Ұшақ</span>
+                    <p class="font-sans text-sm text-stone leading-relaxed">Қарағанды шахтері Түсіп Күзембаев өз қаржысына ұшақ сатып алып берді</p>
+                </div>
+                
+                <div class="bg-paper p-10 reveal hover-trigger" style="transition-delay: 0.1s;">
+                    <span class="font-display text-4xl text-brass block mb-4">Қайық</span>
+                    <p class="font-sans text-sm text-stone leading-relaxed">Пионерлердің қаражатына "Қазақстан комсомолы" атты сүңгуір қайық жасалды</p>
+                </div>
+                
+                <div class="bg-paper p-10 reveal hover-trigger" style="transition-delay: 0.15s;">
+                    <span class="font-display text-4xl text-brass block mb-4">Брест</span>
+                    <p class="font-sans text-sm text-stone leading-relaxed">1941 жылдың 22 маусымында қамал қорғаушылары арасында мыңдаған қазақстандық болды</p>
+                </div>
+                
+                <div class="bg-paper p-10 reveal hover-trigger" style="transition-delay: 0.2s;">
+                    <span class="font-display text-4xl text-brass block mb-4">Танктер</span>
+                    <p class="font-sans text-sm text-stone leading-relaxed">"Қазақстан колхозшысы" танк колоннасы халықтың қаражатына жасалды</p>
+                </div>
+                
+                <div class="bg-paper p-10 reveal hover-trigger" style="transition-delay: 0.25s;">
+                    <span class="font-display text-4xl text-brass block mb-4">Иосселиани</span>
+                    <p class="font-sans text-sm text-stone leading-relaxed">Әйгілі сүңгуір қайық командирі өзін "қазақстандықпын" деп санаған</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Legacy Section -->
+    <section id="legacy" class="py-32 md:py-48 bg-ink text-paper">
+        <div class="max-w-5xl mx-auto px-8 md:px-16 text-center">
+            <p class="text-label text-brass mb-12 reveal-fade">Зерттеу қорытындысы</p>
+            <h2 class="font-display text-5xl md:text-7xl mb-24 reveal">Жеңіс тірегі</h2>
+            
+            <div class="grid md:grid-cols-3 gap-16 mb-24">
+                <div class="reveal">
+                    <span class="font-display text-6xl text-brass block mb-6">01</span>
+                    <h3 class="font-display text-xl text-brass mb-4">Арсенал</h3>
+                    <p class="font-serif text-paper/70 leading-relaxed">
+                        Оқ-дәрі, стратегиялық металл және қару-жарақ өндірісінің басты тірегі болды
+                    </p>
+                </div>
+                
+                <div class="reveal" style="transition-delay: 0.15s;">
+                    <span class="font-display text-6xl text-brass block mb-6">02</span>
+                    <h3 class="font-display text-xl text-brass mb-4">Азық-түлік</h3>
+                    <p class="font-serif text-paper/70 leading-relaxed">
+                        Армия мен майдан шебін нан, ет және киім-кешекпен үздіксіз қамтамасыз етті
+                    </p>
+                </div>
+                
+                <div class="reveal" style="transition-delay: 0.3s;">
+                    <span class="font-display text-6xl text-brass block mb-6">03</span>
+                    <h3 class="font-display text-xl text-brass mb-4">Резерв</h3>
+                    <p class="font-serif text-paper/70 leading-relaxed">
+                        Адами ресурсты, ғылым, мәдениет және өндіріс қуатын сақтап қалған сенімді қорған
+                    </p>
+                </div>
+            </div>
+            
+            <div class="flex items-center justify-center gap-8 reveal-fade">
+                <div class="w-24 h-px bg-brass/30"></div>
+                <span class="font-serif text-xl italic text-brass">1941 — 1945</span>
+                <div class="w-24 h-px bg-brass/30"></div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="py-16 bg-graphite text-paper/50">
+        <div class="max-w-7xl mx-auto px-8 md:px-16">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+                <div class="text-center md:text-left">
+                    <p class="font-display text-lg text-paper mb-2">Қазақстан — Майдан Арсеналы</p>
+                    <p class="font-sans text-sm">Тарихи-зерттеу жобасы</p>
+                </div>
+                <div class="flex items-center gap-6">
+                    <span class="font-sans text-xs">Мәңгі есте қалады</span>
+                    <div class="w-px h-4 bg-paper/20"></div>
+                    <span class="font-serif italic text-brass">1941–1945</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Register GSAP
+        gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+        
+        // Smooth cursor
+        const cursor = document.getElementById('cursor');
+        const cursorDot = document.getElementById('cursorDot');
+        
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+        let dotX = 0, dotY = 0;
+        
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+        
+        function animateCursor() {
+            // Ultra smooth easing
+            cursorX += (mouseX - cursorX) * 0.08;
+            cursorY += (mouseY - cursorY) * 0.08;
+            dotX += (mouseX - dotX) * 0.15;
+            dotY += (mouseY - dotY) * 0.15;
+            
+            cursor.style.left = cursorX - 20 + 'px';
+            cursor.style.top = cursorY - 20 + 'px';
+            cursorDot.style.left = dotX - 2 + 'px';
+            cursorDot.style.top = dotY - 2 + 'px';
+            
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+        
+        // Cursor hover
+        document.querySelectorAll('.hover-trigger, a, button').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+        
+        // Preloader
+        let progress = 0;
+        const loaderProgress = document.getElementById('loaderProgress');
+        const preloader = document.getElementById('preloader');
+        
+        const loadInterval = setInterval(() => {
+            progress += Math.random() * 12;
+            if (progress >= 100) {
+                progress = 100;
+                clearInterval(loadInterval);
+                
+                gsap.to(preloader, {
+                    opacity: 0,
+                    duration: 1.2,
+                    ease: 'power3.inOut',
+                    delay: 0.5,
+                    onComplete: () => {
+                        preloader.style.display = 'none';
+                        initAnimations();
+                    }
+                });
+            }
+            loaderProgress.style.width = progress + '%';
+        }, 100);
+        
+        function initAnimations() {
+            // Hero sequence
+            const heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+            
+            heroTl
+                .to('#heroEyebrow', { opacity: 1, duration: 1.2 })
+                .to('#heroTitle', { opacity: 1, y: 0, duration: 1.5 }, '-=0.8')
+                .to('#heroLine', { scaleX: 1, duration: 1.2 }, '-=1')
+                .to('#heroSubtitle', { opacity: 1, y: 0, duration: 1.2 }, '-=0.8')
+                .to(['#yearStart', '#yearEnd'], { opacity: 1, duration: 1 }, '-=0.6')
+                .to('#scrollHint', { opacity: 1, duration: 1 }, '-=0.4');
+            
+            // Reading progress
+            gsap.to('#readingProgress', {
+                width: '100%',
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: 'body',
+                    start: 'top top',
+                    end: 'bottom bottom',
+                    scrub: 0.5
+                }
+            });
+            
+            // Reveal animations - ultra smooth
+            gsap.utils.toArray('.reveal').forEach(elem => {
+                gsap.to(elem, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 1.5,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: elem,
+                        start: 'top 88%',
+                        toggleActions: 'play none none none'
+                    }
+                });
+            });
+            
+            gsap.utils.toArray('.reveal-fade').forEach(elem => {
+                gsap.to(elem, {
+                    opacity: 1,
+                    duration: 1.5,
+                    ease: 'power2.out',
+                    scrollTrigger: {
+                        trigger: elem,
+                        start: 'top 88%',
+                        toggleActions: 'play none none none'
+                    }
+                });
+            });
+            
+            gsap.utils.toArray('.reveal-line').forEach(elem => {
+                gsap.to(elem, {
+                    scaleX: 1,
+                    duration: 1.5,
+                    ease: 'power2.out',
+                    scrollTrigger: {
+                        trigger: elem,
+                        start: 'top 88%',
+                        toggleActions: 'play none none none'
+                    }
+                });
+            });
+            
+            // Counter animation - smoother
+            gsap.utils.toArray('.counter').forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                
+                ScrollTrigger.create({
+                    trigger: counter,
+                    start: 'top 85%',
+                    onEnter: () => {
+                        gsap.to(counter, {
+                            duration: 3,
+                            ease: 'power2.out',
+                            onUpdate: function() {
+                                const progress = this.progress();
+                                let value = Math.floor(target * progress);
+                                
+                                if (target >= 1000000) {
+                                    counter.textContent = (value / 1000000).toFixed(1).replace('.', ',') + ' млн';
+                                } else if (target >= 1000) {
+                                    counter.textContent = Math.floor(value / 1000) + ' мың';
+                                } else {
+                                    counter.textContent = value + '+';
+                                }
+                            }
+                        });
+                    },
+                    once: true
+                });
+            });
+            
+            // Parallax for decorative elements
+            gsap.utils.toArray('.line-v, .line-h').forEach(line => {
+                gsap.to(line, {
+                    opacity: 0.3,
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: line,
+                        start: 'top bottom',
+                        end: 'bottom top',
+                        scrub: 1
+                    }
+                });
+            });
+        }
+        
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    gsap.to(window, {
+                        duration: 1.8,
+                        scrollTo: { y: target, offsetY: 0 },
+                        ease: 'power3.inOut'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
