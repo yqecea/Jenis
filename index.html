@@ -81,9 +81,6 @@
             pointer-events: none;
             z-index: 9999;
             opacity: 0.6;
-            transition: opacity 0.5s cubic-bezier(0.19, 1, 0.22, 1), 
-                        transform 0.5s cubic-bezier(0.19, 1, 0.22, 1),
-                        background 0.5s cubic-bezier(0.19, 1, 0.22, 1);
         }
         
         .cursor-dot {
@@ -97,9 +94,6 @@
         }
         
         .cursor.hover {
-            transform: scale(1.8);
-            background: rgba(156, 139, 94, 0.08);
-            border-color: #7D6E4B;
             opacity: 1;
         }
         
@@ -150,7 +144,6 @@
             height: 100%;
             background: #9C8B5E;
             width: 0%;
-            transition: width 0.4s cubic-bezier(0.19, 1, 0.22, 1);
         }
         
         .loader-years {
@@ -162,18 +155,6 @@
         }
         
         /* Typography Classes */
-        .font-display {
-            font-family: 'Bodoni Moda', serif;
-        }
-        
-        .font-serif {
-            font-family: 'EB Garamond', serif;
-        }
-        
-        .font-classic {
-            font-family: 'Libre Baskerville', serif;
-        }
-        
         .text-label {
             font-family: 'DM Sans', sans-serif;
             font-size: 0.65rem;
@@ -235,24 +216,12 @@
         .museum-card {
             background: white;
             border: 1px solid #EBE8E1;
-            transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
-        }
-        
-        .museum-card:hover {
-            border-color: #9C8B5E;
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.04);
-            transform: translateY(-4px);
         }
         
         /* Decorative Lines */
         .line-h {
             height: 1px;
             background: linear-gradient(90deg, transparent, #D4CFC4 20%, #D4CFC4 80%, transparent);
-        }
-        
-        .line-v {
-            width: 1px;
-            background: linear-gradient(180deg, transparent, #D4CFC4 20%, #D4CFC4 80%, transparent);
         }
         
         .line-accent {
@@ -322,10 +291,6 @@
             border-radius: 3px;
         }
         
-        ::-webkit-scrollbar-thumb:hover {
-            background: #9C8B5E;
-        }
-        
         /* Grid pattern */
         .grid-subtle {
             background-image: 
@@ -334,10 +299,10 @@
             background-size: 100px 100px;
         }
         
-        /* Reveal base */
+        /* GSAP will handle these - just set initial state */
         .reveal {
             opacity: 0;
-            transform: translateY(40px);
+            transform: translateY(30px);
         }
         
         .reveal-fade {
@@ -349,41 +314,10 @@
             transform-origin: left;
         }
         
-        /* Number styling */
-        .number-outline {
-            -webkit-text-stroke: 1px #9C8B5E;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        /* Hover underline */
-        .hover-line {
-            position: relative;
-        }
-        
-        .hover-line::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background: #9C8B5E;
-            transition: width 0.6s cubic-bezier(0.19, 1, 0.22, 1);
-        }
-        
-        .hover-line:hover::after {
-            width: 100%;
-        }
-        
         /* Mobile */
         @media (max-width: 768px) {
             body { cursor: auto; }
             .cursor, .cursor-dot { display: none; }
-        }
-        
-        /* Smooth transitions for everything */
-        *, *::before, *::after {
-            transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
         }
     </style>
 </head>
@@ -410,10 +344,10 @@
         <div class="max-w-7xl mx-auto px-8 md:px-16 py-8 flex justify-between items-center">
             <a href="#hero" class="font-display text-white text-lg tracking-wide hover-trigger">Арсенал</a>
             <div class="hidden md:flex gap-16">
-                <a href="#industry" class="text-label text-white/70 hover:text-white transition-colors duration-700 hover-trigger">Өнеркәсіп</a>
-                <a href="#heroes" class="text-label text-white/70 hover:text-white transition-colors duration-700 hover-trigger">Батырлар</a>
-                <a href="#agriculture" class="text-label text-white/70 hover:text-white transition-colors duration-700 hover-trigger">Ауыл</a>
-                <a href="#legacy" class="text-label text-white/70 hover:text-white transition-colors duration-700 hover-trigger">Мұра</a>
+                <a href="#industry" class="text-label text-white/70 hover:text-white hover-trigger">Өнеркәсіп</a>
+                <a href="#heroes" class="text-label text-white/70 hover:text-white hover-trigger">Батырлар</a>
+                <a href="#agriculture" class="text-label text-white/70 hover:text-white hover-trigger">Ауыл</a>
+                <a href="#legacy" class="text-label text-white/70 hover:text-white hover-trigger">Мұра</a>
             </div>
         </div>
     </nav>
@@ -523,25 +457,25 @@
                 </div>
             </div>
             
-            <!-- Big Stats -->
-            <div class="grid md:grid-cols-3 gap-8 md:gap-4 mb-32">
+            <!-- Big Stats - use data-stagger-group for GSAP -->
+            <div class="grid md:grid-cols-3 gap-8 md:gap-4 mb-32" data-stagger-group="stats">
                 <!-- Lead -->
                 <div class="text-center py-16 border-t border-parchment reveal hover-trigger group">
-                    <span class="stat-huge text-ink group-hover:text-brass transition-colors duration-700">85<span class="text-brass">%</span></span>
+                    <span class="stat-huge text-ink">85<span class="text-brass">%</span></span>
                     <p class="font-display text-2xl text-ink mt-4 mb-2">Қорғасын</p>
                     <p class="font-serif text-stone italic">Шымкент • Риддер</p>
                 </div>
                 
                 <!-- Copper -->
-                <div class="text-center py-16 border-t border-parchment reveal hover-trigger group" style="transition-delay: 0.1s;">
-                    <span class="stat-huge text-ink group-hover:text-brass transition-colors duration-700">35<span class="text-brass">%</span></span>
+                <div class="text-center py-16 border-t border-parchment reveal hover-trigger group">
+                    <span class="stat-huge text-ink">35<span class="text-brass">%</span></span>
                     <p class="font-display text-2xl text-ink mt-4 mb-2">Мыс</p>
                     <p class="font-serif text-stone italic">Балқаш • Жезқазған</p>
                 </div>
                 
                 <!-- Manganese -->
-                <div class="text-center py-16 border-t border-parchment reveal hover-trigger group" style="transition-delay: 0.2s;">
-                    <span class="stat-huge text-ink group-hover:text-brass transition-colors duration-700">38</span>
+                <div class="text-center py-16 border-t border-parchment reveal hover-trigger group">
+                    <span class="stat-huge text-ink">38</span>
                     <p class="font-display text-2xl text-ink mt-4 mb-2">Күн</p>
                     <p class="font-serif text-stone italic">Жезді марганец рекорды</p>
                 </div>
@@ -562,20 +496,20 @@
                     <span class="stat-medium text-brass reveal-fade">220+</span>
                 </div>
                 
-                <div class="grid md:grid-cols-4 gap-px bg-parchment">
+                <div class="grid md:grid-cols-4 gap-px bg-parchment" data-stagger-group="factories">
                     <div class="bg-paper p-8 reveal hover-trigger">
                         <span class="font-display text-4xl text-brass block mb-4">АЗТМ</span>
                         <p class="font-sans text-sm text-stone leading-relaxed">Алматы ауыр машина жасау зауыты — миналар мен снарядтар шығарды</p>
                     </div>
-                    <div class="bg-paper p-8 reveal hover-trigger" style="transition-delay: 0.1s;">
+                    <div class="bg-paper p-8 reveal hover-trigger">
                         <span class="font-display text-4xl text-brass block mb-4">75%</span>
                         <p class="font-sans text-sm text-stone leading-relaxed">Қарағанды көмір өндіру көлемі соғыс жылдарында артты</p>
                     </div>
-                    <div class="bg-paper p-8 reveal hover-trigger" style="transition-delay: 0.2s;">
+                    <div class="bg-paper p-8 reveal hover-trigger">
                         <span class="font-display text-4xl text-brass block mb-4">60%</span>
                         <p class="font-sans text-sm text-stone leading-relaxed">Қазақстанда молибден өндірісі жолға қойылды</p>
                     </div>
-                    <div class="bg-paper p-8 reveal hover-trigger" style="transition-delay: 0.3s;">
+                    <div class="bg-paper p-8 reveal hover-trigger">
                         <span class="font-display text-4xl text-brass block mb-4">1943</span>
                         <p class="font-sans text-sm text-stone leading-relaxed">Ақтөбе ферроқорытпа зауыты іске қосылды</p>
                     </div>
@@ -604,27 +538,27 @@
             </div>
             
             <!-- Key Stats -->
-            <div class="grid md:grid-cols-3 gap-16 mb-32 text-center">
+            <div class="grid md:grid-cols-3 gap-16 mb-32 text-center" data-stagger-group="hero-stats">
                 <div class="reveal">
                     <span class="stat-large text-ink block mb-4 counter" data-target="1200000">0</span>
                     <p class="text-label">Майданға аттанған</p>
                 </div>
-                <div class="reveal" style="transition-delay: 0.15s;">
+                <div class="reveal">
                     <span class="stat-large text-ink block mb-4 counter" data-target="600000">0</span>
                     <p class="text-label">Қайтып оралмаған</p>
                 </div>
-                <div class="reveal" style="transition-delay: 0.3s;">
+                <div class="reveal">
                     <span class="stat-large text-brass block mb-4 counter" data-target="500">0</span>
                     <p class="text-label">Кеңес Одағының Батыры</p>
                 </div>
             </div>
             
             <!-- Heroes List -->
-            <div class="space-y-0 border-t border-parchment">
+            <div class="space-y-0 border-t border-parchment" data-stagger-group="heroes">
                 <!-- Hero 1 -->
                 <div class="grid md:grid-cols-12 gap-8 py-12 border-b border-parchment reveal hover-trigger group">
                     <div class="md:col-span-1">
-                        <span class="font-display text-3xl text-parchment group-hover:text-brass transition-colors duration-700">01</span>
+                        <span class="font-display text-3xl text-parchment group-hover:text-brass">01</span>
                     </div>
                     <div class="md:col-span-4">
                         <p class="text-label text-brass mb-2">Кеңес Одағының Батыры</p>
@@ -640,7 +574,7 @@
                 <!-- Hero 2 -->
                 <div class="grid md:grid-cols-12 gap-8 py-12 border-b border-parchment reveal hover-trigger group">
                     <div class="md:col-span-1">
-                        <span class="font-display text-3xl text-parchment group-hover:text-brass transition-colors duration-700">02</span>
+                        <span class="font-display text-3xl text-parchment group-hover:text-brass">02</span>
                     </div>
                     <div class="md:col-span-4">
                         <p class="text-label text-brass mb-2">Кеңес Одағының Батыры</p>
@@ -656,7 +590,7 @@
                 <!-- Hero 3 -->
                 <div class="grid md:grid-cols-12 gap-8 py-12 border-b border-parchment reveal hover-trigger group">
                     <div class="md:col-span-1">
-                        <span class="font-display text-3xl text-parchment group-hover:text-brass transition-colors duration-700">03</span>
+                        <span class="font-display text-3xl text-parchment group-hover:text-brass">03</span>
                     </div>
                     <div class="md:col-span-4">
                         <p class="text-label text-brass mb-2">Екі мәрте Батыр</p>
@@ -672,7 +606,7 @@
                 <!-- Hero 4 -->
                 <div class="grid md:grid-cols-12 gap-8 py-12 border-b border-parchment reveal hover-trigger group">
                     <div class="md:col-span-1">
-                        <span class="font-display text-3xl text-parchment group-hover:text-brass transition-colors duration-700">04</span>
+                        <span class="font-display text-3xl text-parchment group-hover:text-brass">04</span>
                     </div>
                     <div class="md:col-span-4">
                         <p class="text-label text-brass mb-2">Халық Қаһарманы</p>
@@ -688,7 +622,7 @@
                 <!-- Hero 5 -->
                 <div class="grid md:grid-cols-12 gap-8 py-12 border-b border-parchment reveal hover-trigger group">
                     <div class="md:col-span-1">
-                        <span class="font-display text-3xl text-parchment group-hover:text-brass transition-colors duration-700">05</span>
+                        <span class="font-display text-3xl text-parchment group-hover:text-brass">05</span>
                     </div>
                     <div class="md:col-span-4">
                         <p class="text-label text-brass mb-2">Рейхстаг Батыры</p>
@@ -704,7 +638,7 @@
                 <!-- Hero 6 -->
                 <div class="grid md:grid-cols-12 gap-8 py-12 border-b border-parchment reveal hover-trigger group">
                     <div class="md:col-span-1">
-                        <span class="font-display text-3xl text-parchment group-hover:text-brass transition-colors duration-700">06</span>
+                        <span class="font-display text-3xl text-parchment group-hover:text-brass">06</span>
                     </div>
                     <div class="md:col-span-4">
                         <p class="text-label text-wine mb-2">Гвардиялық бөлім</p>
@@ -719,20 +653,20 @@
             </div>
             
             <!-- Military Units Stats -->
-            <div class="mt-24 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div class="mt-24 grid grid-cols-2 md:grid-cols-4 gap-8 text-center" data-stagger-group="units">
                 <div class="reveal">
                     <span class="font-display text-5xl text-brass">12</span>
                     <p class="text-label mt-4">Атқыштар<br/>дивизиясы</p>
                 </div>
-                <div class="reveal" style="transition-delay: 0.1s;">
+                <div class="reveal">
                     <span class="font-display text-5xl text-brass">4</span>
                     <p class="text-label mt-4">Кавалериялық<br/>дивизия</p>
                 </div>
-                <div class="reveal" style="transition-delay: 0.2s;">
+                <div class="reveal">
                     <span class="font-display text-5xl text-brass">7</span>
                     <p class="text-label mt-4">Атқыштар<br/>бригадасы</p>
                 </div>
-                <div class="reveal" style="transition-delay: 0.3s;">
+                <div class="reveal">
                     <span class="font-display text-5xl text-brass">50+</span>
                     <p class="text-label mt-4">Полк пен<br/>батальон</p>
                 </div>
@@ -756,7 +690,7 @@
                     </p>
                     
                     <!-- Stats -->
-                    <div class="space-y-12">
+                    <div class="space-y-12" data-stagger-group="agri-stats">
                         <div class="flex items-baseline gap-6 reveal hover-trigger">
                             <span class="font-display text-6xl md:text-7xl text-brass">5.9</span>
                             <div>
@@ -764,14 +698,14 @@
                                 <p class="font-serif text-stone italic">Қамбаға жіберілді</p>
                             </div>
                         </div>
-                        <div class="flex items-baseline gap-6 reveal hover-trigger" style="transition-delay: 0.1s;">
+                        <div class="flex items-baseline gap-6 reveal hover-trigger">
                             <span class="font-display text-6xl md:text-7xl text-brass">734</span>
                             <div>
                                 <p class="font-display text-xl text-ink">мың тонна ет</p>
                                 <p class="font-serif text-stone italic">Майданға жөнелтілді</p>
                             </div>
                         </div>
-                        <div class="flex items-baseline gap-6 reveal hover-trigger" style="transition-delay: 0.2s;">
+                        <div class="flex items-baseline gap-6 reveal hover-trigger">
                             <span class="font-display text-6xl md:text-7xl text-brass">110</span>
                             <div>
                                 <p class="font-display text-xl text-ink">мың жылқы</p>
@@ -782,7 +716,7 @@
                 </div>
                 
                 <!-- Right - Record Holders -->
-                <div class="space-y-8 lg:pt-32">
+                <div class="space-y-8 lg:pt-32" data-stagger-group="records">
                     <!-- Zhakayev -->
                     <div class="museum-card p-10 reveal hover-trigger">
                         <div class="flex items-start gap-6 mb-6">
@@ -798,7 +732,7 @@
                     </div>
                     
                     <!-- Bersiev -->
-                    <div class="museum-card p-10 reveal hover-trigger" style="transition-delay: 0.15s;">
+                    <div class="museum-card p-10 reveal hover-trigger">
                         <div class="flex items-start gap-6 mb-6">
                             <span class="font-display text-5xl text-brass">201</span>
                             <div class="pt-2">
@@ -823,7 +757,7 @@
                 <h2 class="section-title text-ink reveal">Мәдениет және ғылым</h2>
             </div>
             
-            <div class="grid md:grid-cols-2 gap-px bg-parchment mb-24">
+            <div class="grid md:grid-cols-2 gap-px bg-parchment mb-24" data-stagger-group="culture">
                 <!-- Science -->
                 <div class="bg-cream p-12 reveal hover-trigger">
                     <span class="font-display text-4xl text-brass block mb-6">Бурабай</span>
@@ -834,7 +768,7 @@
                 </div>
                 
                 <!-- Cinema -->
-                <div class="bg-cream p-12 reveal hover-trigger" style="transition-delay: 0.1s;">
+                <div class="bg-cream p-12 reveal hover-trigger">
                     <span class="font-display text-4xl text-brass block mb-6">ЦОКС</span>
                     <h3 class="font-display text-2xl text-ink mb-4">Кино өнері</h3>
                     <p class="font-serif text-stone leading-relaxed">
@@ -862,33 +796,33 @@
                 <div class="flex-1 h-px bg-parchment reveal-line"></div>
             </div>
             
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-parchment">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-parchment" data-stagger-group="facts">
                 <div class="bg-paper p-10 reveal hover-trigger">
                     <span class="font-display text-4xl text-brass block mb-4">4.7 млрд</span>
                     <p class="font-sans text-sm text-stone leading-relaxed">Қазақстандықтар жеке жинақтарынан майданға техника алуға жинаған сом</p>
                 </div>
                 
-                <div class="bg-paper p-10 reveal hover-trigger" style="transition-delay: 0.05s;">
+                <div class="bg-paper p-10 reveal hover-trigger">
                     <span class="font-display text-4xl text-brass block mb-4">Ұшақ</span>
                     <p class="font-sans text-sm text-stone leading-relaxed">Қарағанды шахтері Түсіп Күзембаев өз қаржысына ұшақ сатып алып берді</p>
                 </div>
                 
-                <div class="bg-paper p-10 reveal hover-trigger" style="transition-delay: 0.1s;">
+                <div class="bg-paper p-10 reveal hover-trigger">
                     <span class="font-display text-4xl text-brass block mb-4">Қайық</span>
                     <p class="font-sans text-sm text-stone leading-relaxed">Пионерлердің қаражатына "Қазақстан комсомолы" атты сүңгуір қайық жасалды</p>
                 </div>
                 
-                <div class="bg-paper p-10 reveal hover-trigger" style="transition-delay: 0.15s;">
+                <div class="bg-paper p-10 reveal hover-trigger">
                     <span class="font-display text-4xl text-brass block mb-4">Брест</span>
                     <p class="font-sans text-sm text-stone leading-relaxed">1941 жылдың 22 маусымында қамал қорғаушылары арасында мыңдаған қазақстандық болды</p>
                 </div>
                 
-                <div class="bg-paper p-10 reveal hover-trigger" style="transition-delay: 0.2s;">
+                <div class="bg-paper p-10 reveal hover-trigger">
                     <span class="font-display text-4xl text-brass block mb-4">Танктер</span>
                     <p class="font-sans text-sm text-stone leading-relaxed">"Қазақстан колхозшысы" танк колоннасы халықтың қаражатына жасалды</p>
                 </div>
                 
-                <div class="bg-paper p-10 reveal hover-trigger" style="transition-delay: 0.25s;">
+                <div class="bg-paper p-10 reveal hover-trigger">
                     <span class="font-display text-4xl text-brass block mb-4">Иосселиани</span>
                     <p class="font-sans text-sm text-stone leading-relaxed">Әйгілі сүңгуір қайық командирі өзін "қазақстандықпын" деп санаған</p>
                 </div>
@@ -902,7 +836,7 @@
             <p class="text-label text-brass mb-12 reveal-fade">Зерттеу қорытындысы</p>
             <h2 class="font-display text-5xl md:text-7xl mb-24 reveal">Жеңіс тірегі</h2>
             
-            <div class="grid md:grid-cols-3 gap-16 mb-24">
+            <div class="grid md:grid-cols-3 gap-16 mb-24" data-stagger-group="legacy">
                 <div class="reveal">
                     <span class="font-display text-6xl text-brass block mb-6">01</span>
                     <h3 class="font-display text-xl text-brass mb-4">Арсенал</h3>
@@ -911,7 +845,7 @@
                     </p>
                 </div>
                 
-                <div class="reveal" style="transition-delay: 0.15s;">
+                <div class="reveal">
                     <span class="font-display text-6xl text-brass block mb-6">02</span>
                     <h3 class="font-display text-xl text-brass mb-4">Азық-түлік</h3>
                     <p class="font-serif text-paper/70 leading-relaxed">
@@ -919,7 +853,7 @@
                     </p>
                 </div>
                 
-                <div class="reveal" style="transition-delay: 0.3s;">
+                <div class="reveal">
                     <span class="font-display text-6xl text-brass block mb-6">03</span>
                     <h3 class="font-display text-xl text-brass mb-4">Резерв</h3>
                     <p class="font-serif text-paper/70 leading-relaxed">
@@ -954,42 +888,42 @@
     </footer>
     
     <script>
-        // Register GSAP
         gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
         
-        // Smooth cursor
+        // Smooth cursor with GSAP (not CSS transitions)
         const cursor = document.getElementById('cursor');
         const cursorDot = document.getElementById('cursorDot');
-        
         let mouseX = 0, mouseY = 0;
-        let cursorX = 0, cursorY = 0;
-        let dotX = 0, dotY = 0;
         
         document.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
         });
         
-        function animateCursor() {
-            // Ultra smooth easing
-            cursorX += (mouseX - cursorX) * 0.08;
-            cursorY += (mouseY - cursorY) * 0.08;
-            dotX += (mouseX - dotX) * 0.15;
-            dotY += (mouseY - dotY) * 0.15;
-            
-            cursor.style.left = cursorX - 20 + 'px';
-            cursor.style.top = cursorY - 20 + 'px';
-            cursorDot.style.left = dotX - 2 + 'px';
-            cursorDot.style.top = dotY - 2 + 'px';
-            
-            requestAnimationFrame(animateCursor);
-        }
-        animateCursor();
+        // GSAP cursor animation - buttery smooth
+        gsap.ticker.add(() => {
+            gsap.to(cursor, { 
+                x: mouseX - 20, 
+                y: mouseY - 20, 
+                duration: 0.5, 
+                ease: 'power2.out' 
+            });
+            gsap.to(cursorDot, { 
+                x: mouseX - 2, 
+                y: mouseY - 2, 
+                duration: 0.15, 
+                ease: 'power2.out' 
+            });
+        });
         
-        // Cursor hover
+        // Cursor hover with GSAP
         document.querySelectorAll('.hover-trigger, a, button').forEach(el => {
-            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+            el.addEventListener('mouseenter', () => {
+                gsap.to(cursor, { scale: 1.8, opacity: 1, duration: 0.3, ease: 'power2.out' });
+            });
+            el.addEventListener('mouseleave', () => {
+                gsap.to(cursor, { scale: 1, opacity: 0.6, duration: 0.3, ease: 'power2.out' });
+            });
         });
         
         // Preloader
@@ -998,36 +932,36 @@
         const preloader = document.getElementById('preloader');
         
         const loadInterval = setInterval(() => {
-            progress += Math.random() * 12;
+            progress += Math.random() * 15;
             if (progress >= 100) {
                 progress = 100;
                 clearInterval(loadInterval);
                 
                 gsap.to(preloader, {
                     opacity: 0,
-                    duration: 1.2,
-                    ease: 'power3.inOut',
-                    delay: 0.5,
+                    duration: 0.8,
+                    ease: 'power2.inOut',
+                    delay: 0.3,
                     onComplete: () => {
                         preloader.style.display = 'none';
                         initAnimations();
                     }
                 });
             }
-            loaderProgress.style.width = progress + '%';
-        }, 100);
+            gsap.to(loaderProgress, { width: progress + '%', duration: 0.3, ease: 'power1.out' });
+        }, 80);
         
         function initAnimations() {
-            // Hero sequence
+            // Hero sequence - all controlled by GSAP timeline
             const heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
             
             heroTl
-                .to('#heroEyebrow', { opacity: 1, duration: 1.2 })
-                .to('#heroTitle', { opacity: 1, y: 0, duration: 1.5 }, '-=0.8')
-                .to('#heroLine', { scaleX: 1, duration: 1.2 }, '-=1')
-                .to('#heroSubtitle', { opacity: 1, y: 0, duration: 1.2 }, '-=0.8')
-                .to(['#yearStart', '#yearEnd'], { opacity: 1, duration: 1 }, '-=0.6')
-                .to('#scrollHint', { opacity: 1, duration: 1 }, '-=0.4');
+                .to('#heroEyebrow', { opacity: 1, duration: 0.8 })
+                .to('#heroTitle', { opacity: 1, y: 0, duration: 1 }, '-=0.4')
+                .to('#heroLine', { scaleX: 1, duration: 0.8 }, '-=0.6')
+                .to('#heroSubtitle', { opacity: 1, y: 0, duration: 1 }, '-=0.5')
+                .to(['#yearStart', '#yearEnd'], { opacity: 1, duration: 0.6 }, '-=0.4')
+                .to('#scrollHint', { opacity: 1, duration: 0.6 }, '-=0.3');
             
             // Reading progress
             gsap.to('#readingProgress', {
@@ -1037,42 +971,64 @@
                     trigger: 'body',
                     start: 'top top',
                     end: 'bottom bottom',
-                    scrub: 0.5
+                    scrub: 0.3
                 }
             });
             
-            // Reveal animations - ultra smooth
-            gsap.utils.toArray('.reveal').forEach(elem => {
-                gsap.to(elem, {
+            // STAGGER GROUPS - proper way to do delays
+            document.querySelectorAll('[data-stagger-group]').forEach(group => {
+                const items = group.querySelectorAll('.reveal, .reveal-fade');
+                
+                gsap.to(items, {
                     opacity: 1,
                     y: 0,
-                    duration: 1.5,
+                    duration: 0.8,
+                    stagger: 0.1, // THIS is the proper delay between items
                     ease: 'power3.out',
                     scrollTrigger: {
-                        trigger: elem,
-                        start: 'top 88%',
+                        trigger: group,
+                        start: 'top 85%',
                         toggleActions: 'play none none none'
                     }
                 });
             });
             
+            // Individual reveals (not in groups)
+            gsap.utils.toArray('.reveal').forEach(elem => {
+                if (!elem.closest('[data-stagger-group]')) {
+                    gsap.to(elem, {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.8,
+                        ease: 'power3.out',
+                        scrollTrigger: {
+                            trigger: elem,
+                            start: 'top 88%',
+                            toggleActions: 'play none none none'
+                        }
+                    });
+                }
+            });
+            
             gsap.utils.toArray('.reveal-fade').forEach(elem => {
-                gsap.to(elem, {
-                    opacity: 1,
-                    duration: 1.5,
-                    ease: 'power2.out',
-                    scrollTrigger: {
-                        trigger: elem,
-                        start: 'top 88%',
-                        toggleActions: 'play none none none'
-                    }
-                });
+                if (!elem.closest('[data-stagger-group]')) {
+                    gsap.to(elem, {
+                        opacity: 1,
+                        duration: 0.8,
+                        ease: 'power2.out',
+                        scrollTrigger: {
+                            trigger: elem,
+                            start: 'top 88%',
+                            toggleActions: 'play none none none'
+                        }
+                    });
+                }
             });
             
             gsap.utils.toArray('.reveal-line').forEach(elem => {
                 gsap.to(elem, {
                     scaleX: 1,
-                    duration: 1.5,
+                    duration: 1,
                     ease: 'power2.out',
                     scrollTrigger: {
                         trigger: elem,
@@ -1082,7 +1038,7 @@
                 });
             });
             
-            // Counter animation - smoother
+            // Counter animation
             gsap.utils.toArray('.counter').forEach(counter => {
                 const target = parseInt(counter.getAttribute('data-target'));
                 
@@ -1090,13 +1046,12 @@
                     trigger: counter,
                     start: 'top 85%',
                     onEnter: () => {
-                        gsap.to(counter, {
-                            duration: 3,
+                        gsap.to({ val: 0 }, {
+                            val: target,
+                            duration: 2,
                             ease: 'power2.out',
                             onUpdate: function() {
-                                const progress = this.progress();
-                                let value = Math.floor(target * progress);
-                                
+                                let value = Math.floor(this.targets()[0].val);
                                 if (target >= 1000000) {
                                     counter.textContent = (value / 1000000).toFixed(1).replace('.', ',') + ' млн';
                                 } else if (target >= 1000) {
@@ -1110,30 +1065,16 @@
                     once: true
                 });
             });
-            
-            // Parallax for decorative elements
-            gsap.utils.toArray('.line-v, .line-h').forEach(line => {
-                gsap.to(line, {
-                    opacity: 0.3,
-                    ease: 'none',
-                    scrollTrigger: {
-                        trigger: line,
-                        start: 'top bottom',
-                        end: 'bottom top',
-                        scrub: 1
-                    }
-                });
-            });
         }
         
         // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+            anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
                     gsap.to(window, {
-                        duration: 1.8,
+                        duration: 1.2,
                         scrollTo: { y: target, offsetY: 0 },
                         ease: 'power3.inOut'
                     });
